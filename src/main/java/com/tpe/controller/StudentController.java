@@ -110,6 +110,13 @@ public class StudentController {
         return ResponseEntity.ok(studentList);
     }
 
+    // DB den direkt DTO olarak data alabilir miyim?
+    @GetMapping("/query")
+    public ResponseEntity<StudentDTO> getStudentDTOWithJPQL(@RequestParam("id") Long id) {
+        StudentDTO studentDTO = studentService.getStudentDTOById(id);
+
+        return ResponseEntity.ok(studentDTO);
+    }
 
 
 

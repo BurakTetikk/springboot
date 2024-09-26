@@ -79,6 +79,14 @@ public class StudentService {
 
     public List<Student> findAllEqualsGrade(Integer grade) {
 
-        return studentRepository.findAllEqualsGrade(grade);
+        return studentRepository.findAllEqualsGradeWithSQL(grade);
+    }
+
+    public StudentDTO getStudentDTOById(Long id) {
+
+        return studentRepository.findStudentDTOByIdWithJPQL(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
+
+
     }
 }
