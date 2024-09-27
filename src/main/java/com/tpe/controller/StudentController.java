@@ -3,6 +3,8 @@ package com.tpe.controller;
 import com.tpe.dto.StudentDTO;
 import com.tpe.entity.Student;
 import com.tpe.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
+
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
 
     @Autowired
     private StudentService studentService;
@@ -115,7 +120,17 @@ public class StudentController {
     public ResponseEntity<StudentDTO> getStudentDTOWithJPQL(@RequestParam("id") Long id) {
         StudentDTO studentDTO = studentService.getStudentDTOById(id);
 
+        logger.warn("****** StudentDTO ******{}", studentDTO.getEmail());
+
         return ResponseEntity.ok(studentDTO);
+    }
+
+
+    @GetMapping("/welcome")
+    public String welcome(HttpServletRequest request) {
+        logger.warn("--------------------Welcome------------------- : {}", request.getServletPath());
+
+        return "Student Controllar a Hoş Geldiniz!!!";
     }
 
 
