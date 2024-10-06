@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/all")
+   //@PreAuthorize("hasRole('ADMIN')") // method seviye auth
     public ResponseEntity<List<Student>> getAll() { // ResponseEntity = HTTP Status Code + Entity
 
         List<Student> studentList = studentService.getAll();
